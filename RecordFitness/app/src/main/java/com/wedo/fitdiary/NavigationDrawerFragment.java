@@ -1,4 +1,4 @@
-package com.wedo.com.recordfitness;
+package com.wedo.fitdiary;
 
 
 import android.app.Activity;
@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.wedo.fitdiary.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

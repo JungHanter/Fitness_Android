@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#f7f7f6</color>
+    <color name="brown">#A17763</color>
+    <color name="sand">#C2B2A9</color>
+    <color name="salmon">#f29087</color>
+    <color name="lightpalegreen">#8DCFA2</color>
+    <color name="mediumpalegreen">#74C18A</color>
+    <color name="palegreen">#5BC27C</color>
+    <color name="darkenpalegreen">#5DB477</color>
+
+</resources>

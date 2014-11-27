@@ -1,4 +1,4 @@
-package com.wedo.com.recordfitness;
+package com.wedo.fitdiary;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
