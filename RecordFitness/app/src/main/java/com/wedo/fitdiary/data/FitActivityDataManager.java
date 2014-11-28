@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Debug;
 import android.util.Log;
 
 import com.wedo.fitdiary.data.FitActivity.Entry;
@@ -36,7 +35,7 @@ public class FitActivityDataManager extends SQLiteOpenHelper {
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(Entry.COLUMN_NAME_INDEX, act.getIndex());
+        //values.put(Entry.COLUMN_NAME_INDEX, act.getIndex());
         values.put(Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM, act.getActivityTypeNum());
         values.put(Entry.COLUMN_NAME_BEGIN_TIME, act.getBeginTime().getTime());
         values.put(Entry.COLUMN_NAME_END_TIME, act.getEndTime().getTime());
