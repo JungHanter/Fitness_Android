@@ -28,7 +28,7 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
 
 
     /*** CRUD Methods ***/
-    public long insertFitActivity(FitActivityType type) {
+    public long insertFitActivityType(FitActivityType type) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
@@ -45,7 +45,7 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public boolean deleteFitActivity(FitActivityType type) {
+    public boolean deleteFitActivityType(FitActivityType type) {
         SQLiteDatabase db = this.getWritableDatabase();
         int deleteRowNum = db.delete(Entry.TABLE_NAME, Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM + " = ?",
                 new String[] { String.valueOf(type.getType()) });
@@ -54,7 +54,7 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
         return (deleteRowNum > 0);
     }
 
-    public boolean updateFitActivity(FitActivityType type) {
+    public boolean updateFitActivityType(FitActivityType type) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
