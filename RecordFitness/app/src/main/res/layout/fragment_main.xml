@@ -29,7 +29,8 @@
         android:layout_marginTop="8dp"
         android:layout_below="@id/frag_main_today_activity_info"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" >
+        android:layout_alignParentRight="true"
+        android:id="@+id/frag_main_today_activity_weekdays">
 
         <com.wedo.fitdiary.view.WeeklyDaySummaryView
             android:layout_width="0dp"
@@ -76,7 +77,14 @@
 
     </LinearLayout>
 
-
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frag_main_today_activity_list"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/frag_main_today_activity_weekdays"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
