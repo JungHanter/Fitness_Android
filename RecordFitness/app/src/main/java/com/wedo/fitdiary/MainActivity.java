@@ -16,10 +16,18 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import com.wedo.fitdiary.R;
+import com.wedo.fitdiary.data.FitActivity;
+import com.wedo.fitdiary.data.FitActivityType;
+import com.wedo.fitdiary.data.OnManageFitActivityListener;
+import com.wedo.fitdiary.data.OnManageFitTypeListener;
+
+import java.sql.Date;
+import java.util.List;
 
 
 public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+                   OnManageFitActivityListener, OnManageFitTypeListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -161,4 +169,51 @@ public class MainActivity extends Activity
         }
     }
 
+    /*** OnManageFitTypeListener ***/
+    @Override
+    public long onFitTypeInsert(FitActivityType type) {
+        return 0;
+    }
+
+    @Override
+    public boolean onFitTypeDelete(FitActivityType type) {
+        return false;
+    }
+
+    @Override
+    public boolean onFitTypeUpdate(FitActivityType type) {
+        return false;
+    }
+
+    @Override
+    public List<FitActivityType> onGetFitTypes() {
+        return null;
+    }
+
+
+    /*** OnManageFitActivityListeners ***/
+    @Override
+    public void onFitInsert(FitActivity act) {
+
+    }
+
+    @Override
+    public boolean onFitDelete(FitActivity act) {
+        return false;
+    }
+
+    @Override
+    public boolean onFitUpdate(FitActivity act) {
+        return false;
+    }
+
+    @Override
+    public List<FitActivity> onGetFitAll() {
+        return null;
+    }
+
+    @Override
+    public List<FitActivity> onGetFitByBeginTime(Date beginTime, Date endTime) {
+        return null;
+    }
 }
