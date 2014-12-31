@@ -8,10 +8,9 @@ import java.util.List;
  */
 public interface OnManageFitTypeListener {
 
-    public void onFitInsert(FitActivity act);
-    public boolean onFitDelete(FitActivity act);
-    public boolean onFitUpdate(FitActivity act);
-    public List<FitActivity> onGetFitAll();
-    public List<FitActivity> onGetFitByBeginTime(Date beginTime, Date endTime);
+    public long onFitTypeInsert(FitActivityType type);
+    public boolean onFitTypeDelete(FitActivityType type);
+    public boolean onFitTypeUpdate(FitActivityType type);
+    public List<FitActivityType> onGetFitTypes();
 
 }

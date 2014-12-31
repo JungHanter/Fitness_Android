@@ -10,50 +10,11 @@
                 android:orientation="vertical"
                 tools:context=".MainActivity$PlaceholderFragment">
 
-    <TextView
+
+    <CalendarView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="오늘 운동 정보"
-        android:background="@color/lightpalegreen"
-        android:id="@+id/frag_main_today_activity_info" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            custom:textDayOfWeek="Mon"
-            custom:textDay="08"/>
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <com.wedo.fitdiary.view.WeeklyDaySummaryView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
+        android:layout_height="match_parent"
+        android:id="@+id/calendarView"
+        android:clickable="true"
+        android:showWeekNumber="false"/>
 </LinearLayout>

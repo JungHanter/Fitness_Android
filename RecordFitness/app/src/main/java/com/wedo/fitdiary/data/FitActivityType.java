@@ -15,12 +15,17 @@ public class FitActivityType {
         public static final String COLUMN_NAME_MEASURE_TYPE = "measure_type";
     }
 
-    private int activityTypeNum;    // 운동 번호
+    private int activityTypeNum = -10;    // 운동 번호
     private String activityName;    // 운동 이름
     private int measureType;        // 측정 방법
 
     public FitActivityType(int activityTypeNum, String activityName, int measureType) {
         this.activityTypeNum = activityTypeNum;
+        this.activityName = activityName;
+        this.measureType = measureType;
+    }
+
+    public FitActivityType(String activityName, int measureType) {
         this.activityName = activityName;
         this.measureType = measureType;
     }
@@ -49,14 +54,24 @@ public class FitActivityType {
         this.measureType = measureType;
     }
 
+    @Override
+    public String toString() {
+        return "" + activityTypeNum + " : " +
+                activityName + " / " + measureType;
+    }
+
 
     private static List<FitActivityType> _typeList = null;
 
-    static void setTypeList(List<FitActivityType> typeList) {
+    public static void setTypeList(List<FitActivityType> typeList) {
         _typeList = typeList;
     }
 
-    public List<FitActivityType> getTypeList() {
+    public static void addTypeList(FitActivityType type) {
+        _typeList.add(type);
+    }
+
+    public static List<FitActivityType> getTypeList() {
         return _typeList;
     }
 

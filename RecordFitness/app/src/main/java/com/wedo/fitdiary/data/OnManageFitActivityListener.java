@@ -1,5 +1,6 @@
 package com.wedo.fitdiary.data;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -7,9 +8,11 @@ import java.util.List;
  */
 public interface OnManageFitActivityListener {
 
-    public long onFitTypeInsert(FitActivityType type);
-    public boolean onFitTypeDelete(FitActivityType type);
-    public boolean onFitTypeUpdate(FitActivityType type);
-    public List<FitActivityType> onGetFitTypes();
+    public long onFitInsert(FitActivity act);
+    public boolean onFitDelete(FitActivity act);
+    public boolean onFitDeleteAllByType(int fitType);
+    public boolean onFitUpdate(FitActivity act);
+    public List<FitActivity> onGetFitAll();
+    public List<FitActivity> onGetFitByBeginTime(Date beginTime, Date endTime);
 
 }

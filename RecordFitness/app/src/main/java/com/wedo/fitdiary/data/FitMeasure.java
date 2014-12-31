@@ -42,7 +42,8 @@ public abstract class FitMeasure {
                 fitMeasure = FitSetsMeasure.parseValueString(valueString);
                 break;
             default:
-                throw new ParseException("UNDEFINED SUBCLASS, measureType = " + measureType, 0);
+                throw new ParseException("UNDEFINED SUBCLASS, measureType = " + measureType +
+                        ", valueString = " + valueString, 0);
         }
         return fitMeasure;
     }

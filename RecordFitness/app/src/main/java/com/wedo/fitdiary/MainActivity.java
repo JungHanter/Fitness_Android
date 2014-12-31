@@ -17,7 +17,9 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.wedo.fitdiary.R;
 import com.wedo.fitdiary.data.FitActivity;
+import com.wedo.fitdiary.data.FitActivityDataManager;
 import com.wedo.fitdiary.data.FitActivityType;
+import com.wedo.fitdiary.data.FitActivityTypeManager;
 import com.wedo.fitdiary.data.OnManageFitActivityListener;
 import com.wedo.fitdiary.data.OnManageFitTypeListener;
 
@@ -52,28 +54,40 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.act_main_navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        FitActivityType.setTypeList(mFitActivityTypeManager.getFitActivityTypes());
+        mFitActivityDataManager.getWritableDatabase().close();
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Log.d("MainActivity" , "onNavigationDrawerItemSelected(" + position + ")");
 
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.act_main_container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        if(position < 3) {
+            // update the main content by replacing fragments
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.act_main_container, PlaceholderFragment.newInstance(position + 1))
+                    .commit();
 
 
-        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.replace(R.id.act_main_container, PlaceholderFragment.newInstance(position + 1));
-        transaction.addToBackStack(null);
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack
+            transaction.replace(R.id.act_main_container, PlaceholderFragment.newInstance(position + 1));
+            transaction.addToBackStack(null);
 
-        // Commit the transaction
-        transaction.commit();*/
+            // Commit the transaction
+            transaction.commit();*/
+        } else {
+            if(position == 3) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.act_main_container, new FitDataTestFragment())
+                        .commit();
+            }
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -86,6 +100,9 @@ public class MainActivity extends Activity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = "TEST FitData";
                 break;
         }
     }
@@ -169,51 +186,72 @@ public class MainActivity extends Activity
         }
     }
 
+
+    private FitActivityDataManager mFitActivityDataManager = new FitActivityDataManager(this);
+    private FitActivityTypeManager mFitActivityTypeManager = new FitActivityTypeManager(this);
+
     /*** OnManageFitTypeListener ***/
     @Override
     public long onFitTypeInsert(FitActivityType type) {
-        return 0;
+        long result =  mFitActivityTypeManager.insertFitActivityType(type);
+        Log.d("OnManageFitTypeListener", "onFitTypeInsert() " + type.toString());
+        return result;
     }
 
     @Override
     public boolean onFitTypeDelete(FitActivityType type) {
-        return false;
+        Log.d("OnManageFitTypeListener", "onFitTypeDelete() " + type.toString());
+        return mFitActivityTypeManager.deleteFitActivityType(type);
     }
 
     @Override
     public boolean onFitTypeUpdate(FitActivityType type) {
-        return false;
+        Log.d("OnManageFitTypeListener", "onFitTypeUpdate() " + type.toString());
+        return mFitActivityTypeManager.updateFitActivityType(type);
     }
 
     @Override
     public List<FitActivityType> onGetFitTypes() {
-        return null;
+        Log.d("OnManageFitTypeListener", "onGetFitTypes");
+        return mFitActivityTypeManager.getFitActivityTypes();
     }
 
 
     /*** OnManageFitActivityListeners ***/
     @Override
-    public void onFitInsert(FitActivity act) {
-
+    public long onFitInsert(FitActivity act) {
+        long result =  mFitActivityDataManager.insertFitActivity(act);
+        Log.d("OnManageFitActivityListeners", "onFitInsert() " + act.toString());
+        return result;
     }
 
     @Override
     public boolean onFitDelete(FitActivity act) {
-        return false;
+        Log.d("OnManageFitActivityListeners", "onFitDelete() " + act.toString());
+        return mFitActivityDataManager.deleteFitActivity(act);
+    }
+
+    @Override
+    public boolean onFitDeleteAllByType(int fitType) {
+        Log.d("OnManageFitActivityListeners", "onFitDeleteByType() " + fitType);
+        return mFitActivityDataManager.deleteFitActivitiesByFitType(fitType);
     }
 
     @Override
     public boolean onFitUpdate(FitActivity act) {
-        return false;
+        Log.d("OnManageFitActivityListeners", "onFitUpdate() " + act.toString());
+        return mFitActivityDataManager.updateFitActivity(act);
     }
 
     @Override
     public List<FitActivity> onGetFitAll() {
-        return null;
+        Log.d("OnManageFitActivityListeners", "onGetFitAll()");
+        return mFitActivityDataManager.getAllFitActivities();
     }
 
     @Override
     public List<FitActivity> onGetFitByBeginTime(Date beginTime, Date endTime) {
-        return null;
+        Log.d("OnManageFitActivityListeners", "onGetFitByBeginTime()");
+        return mFitActivityDataManager.getFitActivitiesByBeginTime(beginTime, endTime);
     }
 }

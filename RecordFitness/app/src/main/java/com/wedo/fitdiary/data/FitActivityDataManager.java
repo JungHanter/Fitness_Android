@@ -41,6 +41,8 @@ public class FitActivityDataManager extends SQLiteOpenHelper {
         values.put(Entry.COLUMN_NAME_END_TIME, act.getEndTime().getTime());
         values.put(Entry.COLUMN_NAME_MEASURE_VALUE, act.getMeasureValue());
 
+        Log.d("FitActivityDataManager" , "insert : act.type = " + act.getActivityTypeNum());
+
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(Entry.TABLE_NAME, null, values);
 
@@ -55,6 +57,15 @@ public class FitActivityDataManager extends SQLiteOpenHelper {
                 new String[] { String.valueOf(act.getIndex()) });
 
         db.close();
+        return (deleteRowNum > 0);
+    }
+
+    public boolean deleteFitActivitiesByFitType(int fitActivityTypeNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deleteRowNum = db.delete(Entry.TABLE_NAME, Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM + " = ?",
+                new String[] { String.valueOf(fitActivityTypeNum) });
+
+        db.close();;
         return (deleteRowNum > 0);
     }
 
@@ -172,6 +183,12 @@ public class FitActivityDataManager extends SQLiteOpenHelper {
     /*** DB Helper Methods ***/
     @Override
     public void onCreate(SQLiteDatabase db) {
+        DBManager.createDataBase(db);
+    }
+
+    static void createTable(SQLiteDatabase db) {
+        Log.d("FitActivityDataManager", "create DB TABLE " + Entry.TABLE_NAME);
+
         String SQL_CREATE = "CREATE TABLE " + Entry.TABLE_NAME + " (" +
                 Entry.COLUMN_NAME_INDEX + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                 Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM + " INTEGER NOT NULL, " +

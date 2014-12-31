@@ -90,4 +90,13 @@ public class FitActivity {
         this.measure = measure;
         this.measureValue = measure.toValueString();
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d) %d / %s(%d) / %s(%d) / %s",
+                index, activityTypeNum,
+                beginTime.toString(), beginTime.getTime(),
+                endTime.toString(), endTime.getTime(),
+                measureValue);
+    }
 }

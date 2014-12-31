@@ -28,9 +28,7 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
 
 
     /*** CRUD Methods ***/
-    public long insertFitActivityType(FitActivityType type) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
+    static private long insertFitActivityType(SQLiteDatabase db, FitActivityType type) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         //values.put(Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM, type.getType());
@@ -40,7 +38,16 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(Entry.TABLE_NAME, null, values);
         type.setType((int)newRowId);
- 
+
+        return newRowId;
+    }
+
+    public long insertFitActivityType(FitActivityType type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long newRowId = insertFitActivityType(db, type);
+        type.setType((int)newRowId);
+
         db.close();
         return newRowId;
     }
@@ -107,9 +114,16 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
     }
 
 
+
     /*** DB Helper Methods ***/
     @Override
     public void onCreate(SQLiteDatabase db) {
+        DBManager.createDataBase(db);
+    }
+
+    static void createTable(SQLiteDatabase db) {
+        Log.d("FitActivityTypeManager", "create DB TABLE " + Entry.TABLE_NAME);
+
         String SQL_CREATE = "CREATE TABLE " + Entry.TABLE_NAME + " (" +
                 Entry.COLUMN_NAME_ACTIVITY_TYPE_NUM + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                 Entry.COLUMN_NAME_ACTIVITY_NAME + " TEXT NOT NULL, " +
@@ -117,6 +131,9 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
                 ")";
 
         db.execSQL(SQL_CREATE);
+
+        insertFitActivityType(db, new FitActivityType("Running", FitMeasure.MEASURE_TYPE_DISTANCE));
+        insertFitActivityType(db, new FitActivityType("Situp", FitMeasure.MEASURE_TYPE_SETS_N_REPS));
     }
 
     @Override
@@ -142,4 +159,10 @@ public class FitActivityTypeManager extends SQLiteOpenHelper {
     public FitActivityTypeManager(Context context, DatabaseErrorHandler errorHandler) {
         super(context, DBManager.DATABASE_NAME, null, DBManager.DATABSE_VERSION, errorHandler);
     }
+
+    /*public static FitActivityTypeManager loadFitActivityTypeManager(Context context) {
+        FitActivityTypeManager manager = new FitActivityTypeManager(context);
+        FitActivityType.setTypeList(manager.getFitActivityTypes());
+        return manager;
+    }*/
 }
